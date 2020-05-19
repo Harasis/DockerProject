@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  webos:
+    image: ashish5959/web-php-mysql
+    container_name: web1
+    network_mode: "bridge"
+    volumes:
+      - web_storage_new:/var/www/html
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+    depends_on:
+      - dbos
+    restart: always
+    ports:
+      - 1234:80
+
+  dbos:
+    image: mysql:5.7
+    container_name: dbos
+    volumes:
+      - mysql_storage_new:/var/lib/mysql
+    restart: always
+    network_mode: "bridge"
+    environment:
+      MYSQL_ROOT_PASSWORD: ashish
+      MYSQL_USER: Ashish
+      MYSQL_PASSWORD: Maheshwari
+      MYSQL_DATABASE: mydb
+
+volumes:
+  mysql_storage_new:
+  web_storage_new:
